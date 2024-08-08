@@ -1,0 +1,9 @@
+flutter_native_splash:
+  image: assets/logo/ecotyper_logo.png
+  color: '#ffffff'
+  color_dark: '#ffffff'
+  android_12:
+    image: assets/logo/ecotyper_logo.png
+    color: '#ffffff'
+    color_dark: '#ffffff'
+    icon_background_color: "#ffffff"

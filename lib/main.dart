@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ecotyper/features/account/bloc/account_bloc.dart';
 import 'package:ecotyper/features/account/data/model/user_meta.dart';
 import 'package:ecotyper/features/account/data/repository/account_repository.dart';
+import 'package:ecotyper/features/app/data/repository/app_repository.dart';
 import 'package:ecotyper/features/app/widget/app.dart';
 import 'package:ecotyper/features/gameplay/bloc/gameplay_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -16,7 +17,7 @@ import 'package:ecotyper/features/gameplay/data/model/levels.dart';
 import 'package:ecotyper/features/gameplay/data/model/score.dart';
 import 'package:ecotyper/features/gameplay/data/model/sections.dart';
 import 'package:ecotyper/features/gameplay/data/repository/game_repository.dart';
-import 'package:ecotyper/features/home/bloc/app_bloc.dart';
+import 'package:ecotyper/features/app/bloc/app_bloc.dart';
 import 'package:ecotyper/features/leaderboard/bloc/leaderboard_bloc.dart';
 import 'package:ecotyper/firebase_options.dart';
 import 'package:ecotyper/shared/constants.dart';
@@ -43,13 +44,8 @@ void main() async {
   await Hive.openBox<Fact>(AppConstants.playedFacts);
   await Hive.openBox<Score>(AppConstants.scoresBox);
   await Hive.openBox<UserMeta>(AppConstants.userMetaBox);
+  await Hive.openBox<bool>(AppConstants.toPlayMusic);
 
-  // Initialize Supabase
-  // await Supabase.initialize(
-  //   url: Env.supabaseUrl,
-  //   anonKey: Env.supabaseAnon,
-  // );
-  //
   runApp(const MyApp());
 }
 
@@ -59,9 +55,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
-    // FirebaseAuth.instance.createUserWithEmailAndPassword(email: "anthonyameh@gmail.com",password: "1234567890");
+
     checkForInternetConnection();
-    // GeminiProvider().getFact();
+    //
     //
     // Initialize screenutil for responsiveness
     ScreenUtil.init(
@@ -71,6 +67,7 @@ class MyApp extends StatelessWidget {
 
     return MultiRepositoryProvider(
       providers: [
+        RepositoryProvider(create: (context) => AppRepository()),
         RepositoryProvider(create: (context) => GameRepository()),
         RepositoryProvider(create: (context) => AccountRepository()),
       ],
@@ -79,6 +76,7 @@ class MyApp extends StatelessWidget {
           BlocProvider(
             create: (context) => AppBloc(
               gameRepository: context.read<GameRepository>(),
+              appRepository: context.read<AppRepository>(),
             ),
             lazy: false,
           ),

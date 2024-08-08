@@ -1,4 +1,4 @@
-package com.example.ecotyper
+package com.antobuilds.ecotyper
 
 import io.flutter.embedding.android.FlutterActivity
 
