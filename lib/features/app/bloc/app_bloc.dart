@@ -53,19 +53,14 @@ class AppBloc extends Cubit<AppState> {
   }
 
   void notifyUser(String message) async {
+    print("Notified called with message");
     emit(
       state.copyWith(notifyMessage: message),
     );
-    Timer(
-      Duration(seconds: 15),
-      () => _clearNotificationMsg,
-    );
-  }
-
-  void _clearNotificationMsg() async {
-    emit(
-      state.copyWith(notifyMessage: null),
-    );
+    // Timer(
+    //   Duration(seconds: 15),
+    //   () => _clearNotificationMsg,
+    // );
   }
 
   void playMusic() async {

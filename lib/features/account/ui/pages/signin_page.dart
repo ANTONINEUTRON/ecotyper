@@ -1,3 +1,4 @@
+import 'package:ecotyper/features/account/ui/dialogs/forgot_password_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -142,7 +143,16 @@ class _SigninPageState extends State<SigninPage> {
                   Align(
                     alignment: Alignment.bottomRight,
                     child: TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        showModalBottomSheet(
+                          context: context,
+                          showDragHandle: true,
+                          enableDrag: true,
+                          builder: (context) {
+                            return ForgotPasswordDialog();
+                          },
+                        );
+                      },
                       child: const Text(
                         "Forgot password?",
                         textAlign: TextAlign.end,

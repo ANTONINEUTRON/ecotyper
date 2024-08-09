@@ -232,9 +232,6 @@ class AccountBloc extends Cubit<AccountState> {
       );
       accountRepository.storeUserMetaLocally(userMeta: updatedUserMeta);
 
-      print("Updated User");
-      print(updatedUserMeta);
-
       // If user is logged in update remote userMeta
       if (state.user != null) {
         var user = state.user!;
@@ -392,7 +389,7 @@ class AccountBloc extends Cubit<AccountState> {
         ),
       );
 
-  void resetUpdatePPStatus() async => emit(
+  void resetUpdateProfilePicsStatus() async => emit(
         state.copyWith(
           uploadPPStatus: UploadPPStatus.initial,
         ),
@@ -435,6 +432,37 @@ class AccountBloc extends Cubit<AccountState> {
       return "${(number / 1000000000000).toStringAsFixed(1)}T"; // Format as billions (B)
     }
   }
+
+  void sendUserPasswordResetMail(String emailAddress) async {
+    emit(
+      state.copyWith(
+        resetPasswordStatus: ResetPasswordStatus.sent,
+      ),
+    );
+    print("Got there");
+    try {
+      await accountRepository.sendUserResetMail(emailAddress);
+      print("Done");
+      emit(
+        state.copyWith(
+          resetPasswordStatus: ResetPasswordStatus.sent,
+        ),
+      );
+    } catch (e, s) {
+      if (kDebugMode) {
+        print(e);
+        print(s);
+      }
+
+      emit(
+        state.copyWith(resetPasswordStatus: ResetPasswordStatus.error),
+      );
+    }
+  }
+
+  void resetResetPasswordStatus() => emit(
+        state.copyWith(resetPasswordStatus: ResetPasswordStatus.initial),
+      );
 
 //   void verifyUserEmail(String emailAddress) async {
 //     //Emit processing state

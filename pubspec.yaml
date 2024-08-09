@@ -59,6 +59,7 @@ dev_dependencies:
   flutter_gen_runner: ^5.4.0
   flutter_launcher_icons: ^0.13.1
   envied_generator: ^0.5.4+1
+  rename: ^3.0.2
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

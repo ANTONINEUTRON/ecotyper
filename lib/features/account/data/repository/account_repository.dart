@@ -203,6 +203,10 @@ class AccountRepository {
         : _userMetaBox.get(AppConstants.userMetaKey)!;
   }
 
+  Future<void> sendUserResetMail(String email) async {
+    await fbAuth.sendPasswordResetEmail(email: email);
+  }
+
   // Stream<bool> hasBeenVerifiedStream() {
   //   //Keep checking if user has clicked on the link
   //   return Stream.periodic(

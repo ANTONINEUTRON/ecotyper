@@ -212,7 +212,7 @@ class UpdateAvatarWidget extends StatelessWidget {
         WidgetsBinding.instance.addPostFrameCallback(
           (timeStamp) {
             appBloc.notifyUser("Updated Profile Pics successfully!");
-            accountBloc.resetUpdatePPStatus();
+            accountBloc.resetUpdateProfilePicsStatus();
           },
         );
         break;
@@ -224,7 +224,7 @@ class UpdateAvatarWidget extends StatelessWidget {
           (timeStamp) {
             appBloc.notifyUser(
                 "An unexpected error occured when updating profile pics");
-            accountBloc.resetUpdatePPStatus();
+            accountBloc.resetUpdateProfilePicsStatus();
           },
         );
         break;
@@ -232,7 +232,7 @@ class UpdateAvatarWidget extends StatelessWidget {
         WidgetsBinding.instance.addPostFrameCallback(
           (timeStamp) {
             appBloc.notifyUser("No image was selected");
-            accountBloc.resetUpdatePPStatus();
+            accountBloc.resetUpdateProfilePicsStatus();
           },
         );
         break;

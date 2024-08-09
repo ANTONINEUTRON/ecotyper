@@ -1,5 +1,5 @@
 class AppConstants {
-  static String appName = "Type Hero";//Facts Miner/Cleaarer/Trapper - AI enabled multiplayer typing game
+  static String appName = "Ecotyper";//Facts Miner/Cleaarer/Trapper - AI enabled multiplayer typing game
 
   static String metadata = "Metadata";
 

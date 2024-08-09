@@ -20,7 +20,9 @@ enum UpdatePasswordStatus {
   oldPasswordNotMatch
 }
 
-enum VerificationStatus { initial, verified, processing, error }
+enum ResetPasswordStatus { initial, processing, error, sent }
+
+// enum VerificationStatus { initial, verified, processing, error }
 
 enum UploadPPStatus { initial, uploaded, processing, error, fileNotSelected }
 
@@ -30,7 +32,7 @@ class AccountState extends Equatable {
     this.password,
     this.accountStatus = AccountStatus.signedOut,
     this.updateAccountStatus = UpdateAccountStatus.initial,
-    this.verificationStatus = VerificationStatus.initial,
+    this.resetPasswordStatus = ResetPasswordStatus.initial,
     this.uploadPPStatus = UploadPPStatus.initial,
     this.updatePasswordStatus = UpdatePasswordStatus.initial,
     this.authHandlerException,
@@ -40,7 +42,8 @@ class AccountState extends Equatable {
   final String? password;
   final AccountStatus accountStatus;
   final UpdateAccountStatus updateAccountStatus;
-  final VerificationStatus verificationStatus;
+  // final VerificationStatus verificationStatus;
+  final ResetPasswordStatus resetPasswordStatus;
   final UploadPPStatus uploadPPStatus;
   final UpdatePasswordStatus updatePasswordStatus;
   final AuthHandlerException? authHandlerException;
@@ -51,7 +54,8 @@ class AccountState extends Equatable {
         accountStatus,
         password,
         updateAccountStatus,
-        verificationStatus,
+        // verificationStatus,
+        resetPasswordStatus,
         uploadPPStatus,
         updatePasswordStatus,
         authHandlerException,
@@ -62,7 +66,7 @@ class AccountState extends Equatable {
     AccountStatus? accountStatus,
     String? password,
     UpdateAccountStatus? updateAccountStatus,
-    VerificationStatus? verificationStatus,
+    ResetPasswordStatus? resetPasswordStatus,
     UploadPPStatus? uploadPPStatus,
     UpdatePasswordStatus? updatePasswordStatus,
     AuthHandlerException? authHandlerException,
@@ -72,7 +76,7 @@ class AccountState extends Equatable {
       accountStatus: accountStatus ?? this.accountStatus,
       password: password ?? this.password,
       updateAccountStatus: updateAccountStatus ?? this.updateAccountStatus,
-      verificationStatus: verificationStatus ?? this.verificationStatus,
+      resetPasswordStatus: resetPasswordStatus ?? this.resetPasswordStatus,
       uploadPPStatus: uploadPPStatus ?? this.uploadPPStatus,
       updatePasswordStatus: updatePasswordStatus ?? this.updatePasswordStatus,
       authHandlerException: authHandlerException ?? this.authHandlerException,
