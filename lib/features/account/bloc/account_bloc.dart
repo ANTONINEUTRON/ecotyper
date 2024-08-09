@@ -302,6 +302,8 @@ class AccountBloc extends Cubit<AccountState> {
     return accountRepository.getLocalUserMeta();
   }
 
+  
+
   void updatePassword({
     required String oldPassword,
     required String newPassword,

@@ -63,6 +63,12 @@ class AppBloc extends Cubit<AppState> {
     // );
   }
 
+  void _clearNotificationMsg() async {
+    emit(
+      state.copyWith(notifyMessage: null),
+    );
+  }
+
   void playMusic() async {
     await _player.setAsset(Assets.audio.normal);
     _player.setLoopMode(LoopMode.one);

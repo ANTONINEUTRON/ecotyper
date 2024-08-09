@@ -28,8 +28,10 @@ class _ToggleSoundButtonState extends State<ToggleSoundButton> {
       onPressed: () {
         if (isSoundOn) {
           bloc.stopMusic();
+          print("stopped");
         } else {
           bloc.playMusic();
+          print("played");
         }
       },
     );
