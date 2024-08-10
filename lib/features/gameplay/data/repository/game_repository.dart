@@ -189,4 +189,29 @@ class GameRepository {
     }
     return map;
   }
+
+  /// This function saves locally scores and facts without user linked to it to remote db
+  Future<void> saveLocalScoresAndFactsToRemote({required User user}) async {
+    List<Score> localScores = _scoresBox.values.toList();
+
+    var scoresWithNoAttachedUser =
+        localScores.where((score) => score.userId.isNotEmpty);
+
+    List<Fact?> factsToSave = scoresWithNoAttachedUser.map((score) {
+      return _playedFactsBox.get(score.factId);
+    }).toList();
+
+    //Saving scoresWithNoAttachedUser and factsToSave to remote DB
+    for (var score in scoresWithNoAttachedUser) {
+      scoreDB.doc(score.id).set(
+            score.copyWith(userId: user.id).toJson(),
+          );
+    }
+
+    for (var fact in factsToSave) {
+      if (fact != null) {
+        factDB.doc(fact.id).set(fact.toJson());
+      }
+    }
+  }
 }

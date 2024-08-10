@@ -57,9 +57,16 @@ class AccountBloc extends Cubit<AccountState> {
           user: user,
         ),
       );
+
+      //
+      //Save user local score to remote
+      await gameRepository.saveLocalScoresAndFactsToRemote(user: user);
+
       //
       //Fetch and store locally user facts and scores if exist on remote server
       gameRepository.fetchAndSaveRemoteScoresAndFacts(user: user);
+
+
       //store usermeta to local box
       accountRepository.storeUserMetaLocally(userMeta: user.userMeta!);
     } on AuthHandlerException catch (e, s) {
@@ -115,6 +122,11 @@ class AccountBloc extends Cubit<AccountState> {
           user: user,
         ),
       );
+
+
+      //
+      //Save user local score to remote
+      await gameRepository.saveLocalScoresAndFactsToRemote(user: user);
     } on AuthHandlerException catch (e, s) {
       if (kDebugMode) {
         print(e);
@@ -149,10 +161,11 @@ class AccountBloc extends Cubit<AccountState> {
       await accountRepository.logoutUser();
 
       emit(
-        state.copyWith(
-          accountStatus: AccountStatus.signedOut,
-          user: null,
-        ),
+        AccountState(),
+        // state.copyWith(
+        //   accountStatus: AccountStatus.signedOut,
+        //   // user: null,
+        // ),
       );
     } catch (e, s) {
       if (kDebugMode) {
@@ -301,8 +314,6 @@ class AccountBloc extends Cubit<AccountState> {
     }
     return accountRepository.getLocalUserMeta();
   }
-
-  
 
   void updatePassword({
     required String oldPassword,

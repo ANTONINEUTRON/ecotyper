@@ -119,7 +119,10 @@ class AccountOptions extends StatelessWidget {
           AccountItem(
             title: "Log out",
             icon: Icons.logout_rounded,
-            onTap: () => context.read<AccountBloc>().logout(),
+            onTap: () {
+              context.read<AccountBloc>().logout();
+              Navigator.pop(context);
+            },
           ),
 
           Padding(

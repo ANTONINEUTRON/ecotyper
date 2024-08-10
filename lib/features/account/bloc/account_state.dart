@@ -22,8 +22,6 @@ enum UpdatePasswordStatus {
 
 enum ResetPasswordStatus { initial, processing, error, sent }
 
-// enum VerificationStatus { initial, verified, processing, error }
-
 enum UploadPPStatus { initial, uploaded, processing, error, fileNotSelected }
 
 class AccountState extends Equatable {
@@ -42,7 +40,6 @@ class AccountState extends Equatable {
   final String? password;
   final AccountStatus accountStatus;
   final UpdateAccountStatus updateAccountStatus;
-  // final VerificationStatus verificationStatus;
   final ResetPasswordStatus resetPasswordStatus;
   final UploadPPStatus uploadPPStatus;
   final UpdatePasswordStatus updatePasswordStatus;
@@ -54,7 +51,6 @@ class AccountState extends Equatable {
         accountStatus,
         password,
         updateAccountStatus,
-        // verificationStatus,
         resetPasswordStatus,
         uploadPPStatus,
         updatePasswordStatus,
