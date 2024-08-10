@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hive/hive.dart';
 
 import 'package:ecotyper/features/account/data/model/user.dart' as user_model;
@@ -46,6 +47,34 @@ class AccountRepository {
     }
   }
 
+  Future<user_model.User> signInUserWithGoogle() async {
+    // Once signed in, return the UserCredential
+    UserCredential userCredential;
+    try {
+      // Trigger the authentication flow
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+      // Obtain the auth details from the request
+      final GoogleSignInAuthentication? googleAuth =
+          await googleUser?.authentication;
+
+      // Create a new credential
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth?.accessToken,
+        idToken: googleAuth?.idToken,
+      );
+
+      // signin user to firebase auth
+      userCredential = await fbAuth.signInWithCredential(credential);
+    } on FirebaseAuthException catch (e) {
+      throw AuthHandlerException(handleAuthExceptionMessage(e));
+    }
+
+    // save user details to firestore
+    // The userId to be updated into the model
+    return await _saveUserDetailsToFirestore(userCredential);
+  }
+
   Future<user_model.User> _fetchUserData(String id) async {
     var userDocSnapshot = await userColl
         .doc(id)
@@ -55,9 +84,6 @@ class AccountRepository {
           toFirestore: (value, _) => value.toJson(),
         )
         .get();
-    print("HELLLLOSSS");
-    print(userDocSnapshot.data());
-
     return userDocSnapshot.data()!;
   }
 
@@ -77,23 +103,42 @@ class AccountRepository {
     } on FirebaseAuthException catch (e) {
       throw AuthHandlerException(handleAuthExceptionMessage(e));
     }
+
     //Send verification email
     userCredential.user?.sendEmailVerification();
 
     // save user details to firestore
     // The userId to be updated into the model
-    var user2 = userCredential.user;
-    var userId = user2!.uid;
-    var dp = user2.photoURL;
+    return await _saveUserDetailsToFirestore(userCredential);
+  }
 
-    await userColl.doc(userId).set(user
-        .copyWith(
-          id: userId,
-          displayPics: dp ?? "",
+  Future<user_model.User> _saveUserDetailsToFirestore(
+    UserCredential userCredential,
+  ) async {
+    var userr = userCredential.user;
+    var docSnap = await userColl
+        .doc(userr!.uid)
+        .withConverter<user_model.User>(
+          fromFirestore: (snapshot, options) =>
+              user_model.User.fromJson(snapshot.data() ?? {}),
+          toFirestore: (value, options) => value.toJson(),
         )
-        .toJson());
+        .get();
 
-    return user.copyWith(id: userId);
+    if (docSnap.exists) {
+      return docSnap.data()!;
+    }
+
+    var user = user_model.User(
+      id: userr.uid,
+      email: userr.email!,
+      name: userr.displayName!,
+      displayPics: userr.photoURL!,
+    );
+
+    await userColl.doc(user.id).set(user.toJson());
+
+    return user;
   }
 
   // Future<void> signInWithGoogle({
@@ -206,7 +251,6 @@ class AccountRepository {
   Future<void> sendUserResetMail(String email) async {
     await fbAuth.sendPasswordResetEmail(email: email);
   }
-
   // Stream<bool> hasBeenVerifiedStream() {
   //   //Keep checking if user has clicked on the link
   //   return Stream.periodic(

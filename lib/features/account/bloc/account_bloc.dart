@@ -66,7 +66,6 @@ class AccountBloc extends Cubit<AccountState> {
       //Fetch and store locally user facts and scores if exist on remote server
       gameRepository.fetchAndSaveRemoteScoresAndFacts(user: user);
 
-
       //store usermeta to local box
       accountRepository.storeUserMetaLocally(userMeta: user.userMeta!);
     } on AuthHandlerException catch (e, s) {
@@ -123,7 +122,6 @@ class AccountBloc extends Cubit<AccountState> {
         ),
       );
 
-
       //
       //Save user local score to remote
       await gameRepository.saveLocalScoresAndFactsToRemote(user: user);
@@ -132,6 +130,46 @@ class AccountBloc extends Cubit<AccountState> {
         print(e);
         print(s);
       }
+
+      emit(
+        state.copyWith(
+          accountStatus: AccountStatus.authHandlerException,
+          authHandlerException: e,
+        ),
+      );
+    } catch (e, s) {
+      if (kDebugMode) {
+        print(e);
+        print(s);
+      }
+      emit(
+        state.copyWith(
+          accountStatus: AccountStatus.signInError,
+        ),
+      );
+    }
+  }
+
+  void signInWithGoogle() async {
+    // emit processing state
+    emit(
+      state.copyWith(accountStatus: AccountStatus.processing),
+    );
+
+    try {
+      User user = await accountRepository.signInUserWithGoogle();
+      emit(
+        state.copyWith(
+          accountStatus: AccountStatus.signedIn,
+          user: user,
+        ),
+      );
+    } on AuthHandlerException catch (e, s) {
+      if (kDebugMode) {
+        print(e);
+        print(s);
+      }
+
       emit(
         state.copyWith(
           accountStatus: AccountStatus.authHandlerException,
@@ -161,7 +199,7 @@ class AccountBloc extends Cubit<AccountState> {
       await accountRepository.logoutUser();
 
       emit(
-        AccountState(),
+        const AccountState(),
         // state.copyWith(
         //   accountStatus: AccountStatus.signedOut,
         //   // user: null,
