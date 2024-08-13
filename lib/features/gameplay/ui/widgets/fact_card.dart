@@ -28,6 +28,13 @@ class FactCard extends StatelessWidget {
       margin: EdgeInsets.symmetric(vertical: 16.sp),
       child: Column(
         children: [
+          Text(
+            "${state.fact?.prologue ?? ""} \n ...",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 12.sp,
+            ),
+          ),
           HighlightedPassage(
             passage: state.fact?.fact ?? "",
             wordsToHighlight: state.keywords,

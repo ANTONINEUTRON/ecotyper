@@ -22,7 +22,7 @@ class GameRepository {
   /// Fetch facts from AI
   /// return to UI
   Future<Fact> generateFact({
-    required Sections section,
+    required Section section,
     required Levels levels,
   }) async {
     return await _geminiProvider.getFact(
@@ -42,7 +42,7 @@ class GameRepository {
   /// This function returns score & fact pair
   /// If section is provided it returns all the facts that matched the section
   /// else return all facts
-  Future<Map<Score, Fact>> fetchPlayedFacts({Sections? section}) async {
+  Future<Map<Score, Fact>> fetchPlayedFacts({Section? section}) async {
     List<Score> scores = _scoresBox.values.toList();
     Map<Score, Fact> mapToBeReturned = {};
 

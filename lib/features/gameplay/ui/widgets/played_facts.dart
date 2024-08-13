@@ -37,7 +37,7 @@ class PlayedFacts extends StatelessWidget {
           )
         : scores.isEmpty
             ? const Center(
-                child: Text("No recorded score yet!"),
+                child: Text("You haven't played yet!"),
               )
             : GridView.builder(
                 padding: EdgeInsets.only(bottom: 16.sp),

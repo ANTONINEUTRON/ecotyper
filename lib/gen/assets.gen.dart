@@ -35,6 +35,37 @@ class $AssetsAudioGen {
       [cloudCleared, gameKeyTap, gameOver, gameWon, load, normal];
 }
 
+class $AssetsHelpGen {
+  const $AssetsHelpGen();
+
+  /// File path: assets/help/game_over.png
+  AssetGenImage get gameOver =>
+      const AssetGenImage('assets/help/game_over.png');
+
+  /// File path: assets/help/home.png
+  AssetGenImage get home => const AssetGenImage('assets/help/home.png');
+
+  /// File path: assets/help/leaderboard.png
+  AssetGenImage get leaderboard =>
+      const AssetGenImage('assets/help/leaderboard.png');
+
+  /// File path: assets/help/level.png
+  AssetGenImage get level => const AssetGenImage('assets/help/level.png');
+
+  /// File path: assets/help/playing.png
+  AssetGenImage get playing => const AssetGenImage('assets/help/playing.png');
+
+  /// File path: assets/help/prologue.png
+  AssetGenImage get prologue => const AssetGenImage('assets/help/prologue.png');
+
+  /// File path: assets/help/theme.png
+  AssetGenImage get theme => const AssetGenImage('assets/help/theme.png');
+
+  /// List of all assets
+  List<AssetGenImage> get values =>
+      [gameOver, home, leaderboard, level, playing, prologue, theme];
+}
+
 class $AssetsIconsGen {
   const $AssetsIconsGen();
 
@@ -126,6 +157,7 @@ class Assets {
   Assets._();
 
   static const $AssetsAudioGen audio = $AssetsAudioGen();
+  static const $AssetsHelpGen help = $AssetsHelpGen();
   static const $AssetsIconsGen icons = $AssetsIconsGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
   static const $AssetsLogoGen logo = $AssetsLogoGen();

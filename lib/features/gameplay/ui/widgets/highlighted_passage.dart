@@ -42,7 +42,7 @@ class _HighlightedPassageState extends State<HighlightedPassage> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              "PLAYED FACT",
+              "FACT",
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 18.sp,

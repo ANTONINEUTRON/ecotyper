@@ -49,7 +49,7 @@ class GameplayBloc extends Cubit<GameplayState> {
     );
   }
 
-  void setSelectedSection(Sections section) async {
+  void setSelectedSection(Section section) async {
     //
     emit(
       state.copyWith(

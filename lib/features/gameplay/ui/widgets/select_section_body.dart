@@ -17,10 +17,11 @@ class SelectSectionBody extends StatelessWidget {
         crossAxisSpacing: 12.sp,
         mainAxisSpacing: 12.sp,
       ),
-      children: Sections.values
+      children: Section.values
           .map(
             (section) => SectionsGridTile(
               title: section.title,
+              icon: Section.getAssociatedIcon(section),
               onTap: () {
                 // save value to bloc
                 var bloc = context.read<GameplayBloc>();

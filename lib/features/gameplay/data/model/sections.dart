@@ -1,23 +1,42 @@
+import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
 part 'sections.g.dart';
 
 @HiveType(typeId: 3)
-enum Sections {
+enum Section {
   @HiveField(0)
-  scienceAndTech("Science and Technology"),
+  climateChange("Climate Change"),
   @HiveField(1)
-  historyAndCulture("History and Culture"),
+  sustainableCommunities("Sustainable Communities"),
   @HiveField(2)
-  natureAndEnvironment("Nature and Environment"),
+  lifeOnLand("Life on Land"),
   @HiveField(3)
-  healthAndWellness("Health and Wellness"),
+  cleanEnergy("Clean Energy"),
   @HiveField(4)
-  artsAndEntertainment("Arts and Entertainment"),
+  oceanLife("Clean Water and Sanitation"),
   @HiveField(5)
-  travelAndExploration("Travel and Exploration");
+  cleanWaterAndSanitation("Ocean Life");
 
-  const Sections(this.title);
+  const Section(this.title);
 
   final String title;
+
+  static IconData getAssociatedIcon(Section section) {
+    switch (section) {
+      //
+      case Section.climateChange:
+        return Icons.cloud;
+      case Section.sustainableCommunities:
+        return Icons.people;
+      case Section.lifeOnLand:
+        return Icons.forest;
+      case Section.cleanEnergy:
+        return Icons.solar_power_outlined;
+      case Section.oceanLife:
+        return Icons.water;
+      case Section.cleanWaterAndSanitation:
+        return Icons.water;
+    }
+  }
 }

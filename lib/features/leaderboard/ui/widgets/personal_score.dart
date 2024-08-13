@@ -18,46 +18,44 @@ class PersonalScore extends StatelessWidget {
   Widget build(BuildContext context) {
     context.read<GameplayBloc>().fetchPlayedFacts();
 
-    return SafeArea(
-      child: Container(
-        height: MediaQuery.of(context).size.height,
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: Assets.images.pageBg.provider(),
-            fit: BoxFit.fill,
-            opacity: 0.3,
+    return Container(
+      height: MediaQuery.of(context).size.height,
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: Assets.images.pageBg.provider(),
+          fit: BoxFit.fill,
+          opacity: 0.3,
+        ),
+      ),
+      child: ListView(
+        shrinkWrap: true,
+        padding: EdgeInsets.all(16.sp),
+        children: [
+          const Align(
+            alignment: Alignment.topLeft,
+            child: CloseButton(),
           ),
-        ),
-        child: ListView(
-          shrinkWrap: true,
-          padding: EdgeInsets.all(16.sp),
-          children: [
-            const Align(
-              alignment: Alignment.topLeft,
-              child: CloseButton(),
-            ),
-            const ScoreCard(),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 18.h),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Played Games",
-                    style: TextStyle(
-                      fontSize: 24.sp,
-                      fontWeight: FontWeight.bold,
-                    ),
+          const ScoreCard(),
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: 18.h),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Played Games",
+                  style: TextStyle(
+                    fontSize: 24.sp,
+                    fontWeight: FontWeight.bold,
                   ),
-                  const SortButton(),
-                ],
-              ),
+                ),
+                const SortButton(),
+              ],
             ),
-            const PlayedFacts(
-              scrollPhysics: NeverScrollableScrollPhysics(),
-            ),
-          ],
-        ),
+          ),
+          const PlayedFacts(
+            scrollPhysics: NeverScrollableScrollPhysics(),
+          ),
+        ],
       ),
     );
   }

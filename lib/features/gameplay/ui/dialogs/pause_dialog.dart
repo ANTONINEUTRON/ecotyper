@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ecotyper/features/app/bloc/app_bloc.dart';
 import 'package:ecotyper/features/gameplay/bloc/timer_bloc.dart';
 import 'package:ecotyper/features/gameplay/ui/pages/game_over_page.dart';
-import 'package:ecotyper/features/preview/ui/pages/preview_page.dart';
+import 'package:ecotyper/features/help/ui/pages/help_page.dart';
 import 'package:ecotyper/shared/widgets/custom_button.dart';
 
 class PauseDialog extends StatelessWidget {

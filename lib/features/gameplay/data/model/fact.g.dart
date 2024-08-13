@@ -20,7 +20,7 @@ class FactImplAdapter extends TypeAdapter<_$FactImpl> {
       id: fields[1] as String,
       fact: fields[2] as String,
       prologue: fields[3] as String,
-      section: fields[4] as Sections,
+      section: fields[4] as Section,
       level: fields[5] as Levels,
       lastAccessedTime: fields[6] as DateTime,
     );
@@ -63,7 +63,7 @@ _$FactImpl _$$FactImplFromJson(Map<String, dynamic> json) => _$FactImpl(
       id: json['id'] as String,
       fact: json['fact'] as String,
       prologue: json['prologue'] as String,
-      section: $enumDecode(_$SectionsEnumMap, json['section']),
+      section: $enumDecode(_$SectionEnumMap, json['section']),
       level: $enumDecode(_$LevelsEnumMap, json['level']),
       lastAccessedTime: DateTime.parse(json['lastAccessedTime'] as String),
     );
@@ -73,18 +73,18 @@ Map<String, dynamic> _$$FactImplToJson(_$FactImpl instance) =>
       'id': instance.id,
       'fact': instance.fact,
       'prologue': instance.prologue,
-      'section': _$SectionsEnumMap[instance.section]!,
+      'section': _$SectionEnumMap[instance.section]!,
       'level': _$LevelsEnumMap[instance.level]!,
       'lastAccessedTime': instance.lastAccessedTime.toIso8601String(),
     };
 
-const _$SectionsEnumMap = {
-  Sections.scienceAndTech: 'scienceAndTech',
-  Sections.historyAndCulture: 'historyAndCulture',
-  Sections.natureAndEnvironment: 'natureAndEnvironment',
-  Sections.healthAndWellness: 'healthAndWellness',
-  Sections.artsAndEntertainment: 'artsAndEntertainment',
-  Sections.travelAndExploration: 'travelAndExploration',
+const _$SectionEnumMap = {
+  Section.climateChange: 'climateChange',
+  Section.sustainableCommunities: 'sustainableCommunities',
+  Section.lifeOnLand: 'lifeOnLand',
+  Section.cleanEnergy: 'cleanEnergy',
+  Section.oceanLife: 'oceanLife',
+  Section.cleanWaterAndSanitation: 'cleanWaterAndSanitation',
 };
 
 const _$LevelsEnumMap = {

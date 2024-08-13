@@ -78,126 +78,124 @@ class _SigninPageState extends State<SigninPage> {
 
       //   ],
       // ),
-      body: SafeArea(
-        child: Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: Assets.images.pageBg.provider(),
-              fit: BoxFit.fill,
-              opacity: 0.2,
-            ),
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: Assets.images.pageBg.provider(),
+            fit: BoxFit.fill,
+            opacity: 0.2,
           ),
-          child: Form(
-            key: _formKey,
-            child: ListView(
-              padding: EdgeInsets.all(16.sp),
-              children: [
-                // const Text("Sign in to your account"),
-                Container(
-                  padding: EdgeInsets.symmetric(vertical: 16.sp),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const CloseButton(),
-                      Text(
-                        "Sign In",
-                        style: TextStyle(fontSize: 24.sp),
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          Navigator.pushReplacement(
-                            context,
-                            SignupPage.route(),
-                          );
-                        },
-                        child: const Text("Sign Up"),
-                      ),
-                    ],
-                  ),
-                ),
-                CustomTextfield(
-                  validator: ValidationBuilder().email().build(),
-                  hint: "Email",
-                  onChange: (value) {
-                    email = value;
-                  },
-                ),
-                SizedBox(
-                  height: 16.h,
-                ),
-                PasswordTextField(
-                  onChange: (value) => password = value,
-                ),
-                //
-                // Show processing circle
-                if (isProcessing)
-                  Column(
-                    children: [
-                      SizedBox(height: 16.h),
-                      const CircularProgressIndicator(),
-                    ],
-                  ),
-                SizedBox(
-                  height: 8.h,
-                ),
-                if (!isProcessing)
-                  Align(
-                    alignment: Alignment.bottomRight,
-                    child: TextButton(
+        ),
+        child: Form(
+          key: _formKey,
+          child: ListView(
+            padding: EdgeInsets.all(16.sp),
+            children: [
+              // const Text("Sign in to your account"),
+              Container(
+                padding: EdgeInsets.symmetric(vertical: 16.sp),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const CloseButton(),
+                    Text(
+                      "Sign In",
+                      style: TextStyle(fontSize: 24.sp),
+                    ),
+                    TextButton(
                       onPressed: () {
-                        showModalBottomSheet(
-                          context: context,
-                          showDragHandle: true,
-                          enableDrag: true,
-                          builder: (context) {
-                            return ForgotPasswordDialog();
-                          },
+                        Navigator.pushReplacement(
+                          context,
+                          SignupPage.route(),
                         );
                       },
-                      child: const Text(
-                        "Forgot password?",
-                        textAlign: TextAlign.end,
-                      ),
-                    ),
-                  ),
-                SizedBox(
-                  height: 16.h,
-                ),
-                CustomRectButton(
-                  text: "Login",
-                  onTap: isProcessing
-                      ? null
-                      : () {
-                          if (_formKey.currentState!.validate()) {
-                            context
-                                .read<AccountBloc>()
-                                .signInWithEmailAndPassword(
-                                  email: email,
-                                  password: password,
-                                );
-                          }
-                        },
-                ),
-                SizedBox(
-                  height: 32.h,
-                ),
-                const Row(
-                  children: [
-                    Flexible(
-                      child: Divider(),
-                    ),
-                    Text("Or sign in with"),
-                    Flexible(
-                      child: Divider(),
+                      child: const Text("Sign Up"),
                     ),
                   ],
                 ),
-                SizedBox(
-                  height: 32.h,
+              ),
+              CustomTextfield(
+                validator: ValidationBuilder().email().build(),
+                hint: "Email",
+                onChange: (value) {
+                  email = value;
+                },
+              ),
+              SizedBox(
+                height: 16.h,
+              ),
+              PasswordTextField(
+                onChange: (value) => password = value,
+              ),
+              //
+              // Show processing circle
+              if (isProcessing)
+                Column(
+                  children: [
+                    SizedBox(height: 16.h),
+                    const CircularProgressIndicator(),
+                  ],
                 ),
-                const SigninWithGoogleButton(),
-              ],
-            ),
+              SizedBox(
+                height: 8.h,
+              ),
+              if (!isProcessing)
+                Align(
+                  alignment: Alignment.bottomRight,
+                  child: TextButton(
+                    onPressed: () {
+                      showModalBottomSheet(
+                        context: context,
+                        showDragHandle: true,
+                        enableDrag: true,
+                        builder: (context) {
+                          return ForgotPasswordDialog();
+                        },
+                      );
+                    },
+                    child: const Text(
+                      "Forgot password?",
+                      textAlign: TextAlign.end,
+                    ),
+                  ),
+                ),
+              SizedBox(
+                height: 16.h,
+              ),
+              CustomRectButton(
+                text: "Login",
+                onTap: isProcessing
+                    ? null
+                    : () {
+                        if (_formKey.currentState!.validate()) {
+                          context
+                              .read<AccountBloc>()
+                              .signInWithEmailAndPassword(
+                                email: email,
+                                password: password,
+                              );
+                        }
+                      },
+              ),
+              SizedBox(
+                height: 32.h,
+              ),
+              const Row(
+                children: [
+                  Flexible(
+                    child: Divider(),
+                  ),
+                  Text("Or sign in with"),
+                  Flexible(
+                    child: Divider(),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 32.h,
+              ),
+              const SigninWithGoogleButton(),
+            ],
           ),
         ),
       ),

@@ -7,7 +7,7 @@ import 'package:ecotyper/features/app/bloc/app_bloc.dart';
 import 'package:ecotyper/features/home/ui/widgets/toggle_sound_button.dart';
 import 'package:ecotyper/features/home/ui/widgets/user_profile_button.dart';
 import 'package:ecotyper/features/leaderboard/ui/pages/leaderboard_page.dart';
-import 'package:ecotyper/features/preview/ui/pages/preview_page.dart';
+import 'package:ecotyper/features/help/ui/pages/help_page.dart';
 import 'package:ecotyper/gen/assets.gen.dart';
 import 'package:ecotyper/shared/widgets/custom_button.dart';
 

@@ -35,7 +35,7 @@ void main() async {
   // 6 is currently the highest TypeId
   await Hive.initFlutter();
   Hive.registerAdapter(FactImplAdapter());
-  Hive.registerAdapter(SectionsAdapter());
+  Hive.registerAdapter(SectionAdapter());
   Hive.registerAdapter(LevelsAdapter());
   Hive.registerAdapter(ScoreImplAdapter());
   Hive.registerAdapter(DifficultyAdapter());

@@ -40,7 +40,7 @@ class GameplayState extends Equatable {
   final LoadingFactStatus loadingFactStatus;
   final Fact? fact;
   final int score;
-  final Sections? selectedSection;
+  final Section? selectedSection;
   final Levels? selectedLevelRange;
   final Map<Score, Fact> scoreToFactsMap;
   final Difficulty difficulty;
@@ -66,7 +66,7 @@ class GameplayState extends Equatable {
     List<String>? keywords,
     List<String>? typedWords,
     int? score,
-    Sections? selectedSection,
+    Section? selectedSection,
     Levels? selectedLevelRange,
     Fact? fact,
     LoadingFactStatus? loadingFactStatus,

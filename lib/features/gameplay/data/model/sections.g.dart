@@ -6,49 +6,49 @@ part of 'sections.dart';
 // TypeAdapterGenerator
 // **************************************************************************
 
-class SectionsAdapter extends TypeAdapter<Sections> {
+class SectionAdapter extends TypeAdapter<Section> {
   @override
   final int typeId = 3;
 
   @override
-  Sections read(BinaryReader reader) {
+  Section read(BinaryReader reader) {
     switch (reader.readByte()) {
       case 0:
-        return Sections.scienceAndTech;
+        return Section.climateChange;
       case 1:
-        return Sections.historyAndCulture;
+        return Section.sustainableCommunities;
       case 2:
-        return Sections.natureAndEnvironment;
+        return Section.lifeOnLand;
       case 3:
-        return Sections.healthAndWellness;
+        return Section.cleanEnergy;
       case 4:
-        return Sections.artsAndEntertainment;
+        return Section.oceanLife;
       case 5:
-        return Sections.travelAndExploration;
+        return Section.cleanWaterAndSanitation;
       default:
-        return Sections.scienceAndTech;
+        return Section.climateChange;
     }
   }
 
   @override
-  void write(BinaryWriter writer, Sections obj) {
+  void write(BinaryWriter writer, Section obj) {
     switch (obj) {
-      case Sections.scienceAndTech:
+      case Section.climateChange:
         writer.writeByte(0);
         break;
-      case Sections.historyAndCulture:
+      case Section.sustainableCommunities:
         writer.writeByte(1);
         break;
-      case Sections.natureAndEnvironment:
+      case Section.lifeOnLand:
         writer.writeByte(2);
         break;
-      case Sections.healthAndWellness:
+      case Section.cleanEnergy:
         writer.writeByte(3);
         break;
-      case Sections.artsAndEntertainment:
+      case Section.oceanLife:
         writer.writeByte(4);
         break;
-      case Sections.travelAndExploration:
+      case Section.cleanWaterAndSanitation:
         writer.writeByte(5);
         break;
     }
@@ -60,7 +60,7 @@ class SectionsAdapter extends TypeAdapter<Sections> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is SectionsAdapter &&
+      other is SectionAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

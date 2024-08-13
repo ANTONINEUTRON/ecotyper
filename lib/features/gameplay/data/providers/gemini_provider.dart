@@ -17,29 +17,25 @@ class GeminiProvider {
   );
 
   Future<Fact> getFact({
-    required Sections section,
+    required Section section,
     required Levels levels,
   }) async {
     final content = [
-      Content.text("""
-  Write a $section fact in JSON format as plain text while removing all markdown formatting. 
+      Content.text(
+        """
+  Write in a fun and educative tune a $section fact or tips related to sustainablity in JSON format as plain text while removing all markdown formatting. 
 
   The JSON object should have two keys:
 
-  * prologue (length: under 40 words): A concise introduction related to the fact.
+  * prologue (length: under 40 words): A concise, catchy and suspenseful introduction related to the fact.
   * fact (length: ${levels.rangeOfValue} words): The fact in a clear and informative way.
-  """),
-      // Content.text(
-      //     "Write a $section fact in JSON format. The JSON object should have two keys: prologue (length: under 40 words): A concise introduction related to the fact; and fact (length: ${levels.rangeOfValue} words): The fact in a clear and informative way"),
-      // Content.text(
-      //     "Here is a fun fact in JSON format as plain text and no formatting. provide a fact related to $section, include a prologue (not more than 40 words) and an associated factual body with word length between ${levels.rangeOfValue} words { \"prologue\": "
-      //     ", \"fact\": "
-      //     " }")
+  """,
+      ),
     ];
-    print(content.first.parts.first);
+
     final response = await model.generateContent(content);
-    String responseText = _removeAllCharacters(text: response.text!);
-    print(responseText);
+    String responseText = _removeAllCharactersExceptJson(text: response.text!);
+
     Map<String, dynamic> passageAsJson = jsonDecode(responseText);
     return Fact(
       id: const Uuid().v1(),
@@ -51,7 +47,7 @@ class GeminiProvider {
     );
   }
 
-  String _removeAllCharacters({required String text}) {
+  String _removeAllCharactersExceptJson({required String text}) {
     return text.substring(text.indexOf("{"), text.indexOf("}") + 1);
   }
 }

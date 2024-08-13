@@ -14,7 +14,7 @@ class SigninWithGoogleButton extends StatelessWidget {
     var bloc = context.watch<AccountBloc>();
 
     return bloc.state.accountStatus == AccountStatus.processing
-        ? const CircularProgressIndicator()
+        ? SizedBox()
         : CustomRectButton(
             text: "Google",
             onTap: () {

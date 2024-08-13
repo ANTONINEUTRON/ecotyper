@@ -39,6 +39,7 @@ class _GameplayPageState extends State<GameplayPage> {
         context: context,
         barrierDismissible: false,
         builder: (context) {
+          animationController.stop();
           return AlertDialog(
             content: bloc.state.score != bloc.getTotalScore()
                 ? const GameOverDialog()
@@ -54,7 +55,7 @@ class _GameplayPageState extends State<GameplayPage> {
     super.dispose();
 
     animationController.stop();
-    animationController.dispose();
+    // animationController.dispose();
   }
 
   @override
@@ -72,95 +73,93 @@ class _GameplayPageState extends State<GameplayPage> {
         showPauseDialog(context);
       },
       child: Scaffold(
-        body: SafeArea(
-          child: Container(
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: Assets.images.gameplayBg.provider(),
-                fit: BoxFit.fill,
-              ),
+        body: Container(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: Assets.images.gameplayBg.provider(),
+              fit: BoxFit.fill,
             ),
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Stack(
-                  children: [
-                    Expanded(
-                      // height: MediaQuery.of(context).size.height * 0.67,
-                      // width: MediaQuery.of(context).size.width * 0.99,
-                      child: ListView(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        children: [
-                          Wrap(
-                            children: keywords
-                                .map(
-                                  (keyword) => CloudItem(
-                                    key: Key(keyword),
-                                    text: keyword,
-                                  ),
-                                )
-                                .toList(),
-                          ).animate(
-                            onInit: (controller) {
-                              animationController = controller;
-                            },
-                            onComplete: (controller) {
-                              showEndGameDialog();
-                            },
-                          ).slideY(
-                            duration: Duration(seconds: fallTime.toInt()),
-                            begin: -1.0,
-                            end: fact.level.endPosition,
-                          )
-                        ],
-                      ),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Stack(
+                children: [
+                  Container(
+                    height: MediaQuery.of(context).size.height * 0.66,
+                    // width: MediaQuery.of(context).size.width * 0.99,
+                    child: ListView(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      children: [
+                        Wrap(
+                          children: keywords
+                              .map(
+                                (keyword) => CloudItem(
+                                  key: Key(keyword),
+                                  text: keyword,
+                                ),
+                              )
+                              .toList(),
+                        ).animate(
+                          onInit: (controller) {
+                            animationController = controller;
+                          },
+                          onComplete: (controller) {
+                            showEndGameDialog();
+                          },
+                        ).slideY(
+                          duration: Duration(seconds: fallTime.toInt()),
+                          begin: -1.0,
+                          end: fact.level.endPosition,
+                        )
+                      ],
                     ),
-                    //Timer Button
-                    Positioned(
-                      top: 24.h,
-                      left: 8.w,
-                      child: Builder(builder: (context) {
-                        return GameplayTimer(
-                          seconds: fallTime.toInt(),
-                        );
-                      }),
-                    ),
-                    // Score Holder
-                    const Align(
-                      alignment: Alignment.topCenter,
-                      child: ScoreBoard(),
-                    ),
-                    //Pause Button
-                    Positioned(
-                      top: 24.h,
-                      right: 8.w,
-                      child: CustomIconButton(
-                        onPressed: () {
-                          showPauseDialog(context);
-                        },
-                        icon: const Icon(
-                          Icons.pause_circle_filled_outlined,
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-                FittedBox(
-                  child: CustomKeyboard(
-                    onKeywordListChange: (isKeywordListEmpty) {
-                      if (isKeywordListEmpty &&
-                          !animationController.isCompleted) {
-                        showEndGameDialog();
-                      }
-                    },
                   ),
+                  //Timer Button
+                  Positioned(
+                    top: 24.h,
+                    left: 8.w,
+                    child: Builder(builder: (context) {
+                      return GameplayTimer(
+                        seconds: fallTime.toInt(),
+                      );
+                    }),
+                  ),
+                  // Score Holder
+                  const Align(
+                    alignment: Alignment.topCenter,
+                    child: ScoreBoard(),
+                  ),
+                  //Pause Button
+                  Positioned(
+                    top: 24.h,
+                    right: 8.w,
+                    child: CustomIconButton(
+                      onPressed: () {
+                        showPauseDialog(context);
+                      },
+                      icon: const Icon(
+                        Icons.pause_circle_filled_outlined,
+                      ),
+                    ),
+                  )
+                ],
+              ),
+              FittedBox(
+                child: CustomKeyboard(
+                  onKeywordListChange: (isKeywordListEmpty) {
+                    if (isKeywordListEmpty &&
+                        !animationController.isCompleted) {
+                      showEndGameDialog();
+                    }
+                  },
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

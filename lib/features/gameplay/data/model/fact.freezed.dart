@@ -27,7 +27,7 @@ mixin _$Fact {
   @HiveField(3)
   String get prologue => throw _privateConstructorUsedError;
   @HiveField(4)
-  Sections get section => throw _privateConstructorUsedError;
+  Section get section => throw _privateConstructorUsedError;
   @HiveField(5)
   Levels get level => throw _privateConstructorUsedError;
   @HiveField(6)
@@ -47,7 +47,7 @@ abstract class $FactCopyWith<$Res> {
       {@HiveField(1) String id,
       @HiveField(2) String fact,
       @HiveField(3) String prologue,
-      @HiveField(4) Sections section,
+      @HiveField(4) Section section,
       @HiveField(5) Levels level,
       @HiveField(6) DateTime lastAccessedTime});
 }
@@ -88,7 +88,7 @@ class _$FactCopyWithImpl<$Res, $Val extends Fact>
       section: null == section
           ? _value.section
           : section // ignore: cast_nullable_to_non_nullable
-              as Sections,
+              as Section,
       level: null == level
           ? _value.level
           : level // ignore: cast_nullable_to_non_nullable
@@ -112,7 +112,7 @@ abstract class _$$FactImplCopyWith<$Res> implements $FactCopyWith<$Res> {
       {@HiveField(1) String id,
       @HiveField(2) String fact,
       @HiveField(3) String prologue,
-      @HiveField(4) Sections section,
+      @HiveField(4) Section section,
       @HiveField(5) Levels level,
       @HiveField(6) DateTime lastAccessedTime});
 }
@@ -150,7 +150,7 @@ class __$$FactImplCopyWithImpl<$Res>
       section: null == section
           ? _value.section
           : section // ignore: cast_nullable_to_non_nullable
-              as Sections,
+              as Section,
       level: null == level
           ? _value.level
           : level // ignore: cast_nullable_to_non_nullable
@@ -190,7 +190,7 @@ class _$FactImpl extends _Fact {
   final String prologue;
   @override
   @HiveField(4)
-  final Sections section;
+  final Section section;
   @override
   @HiveField(5)
   final Levels level;
@@ -242,7 +242,7 @@ abstract class _Fact extends Fact {
       {@HiveField(1) required final String id,
       @HiveField(2) required final String fact,
       @HiveField(3) required final String prologue,
-      @HiveField(4) required final Sections section,
+      @HiveField(4) required final Section section,
       @HiveField(5) required final Levels level,
       @HiveField(6) required final DateTime lastAccessedTime}) = _$FactImpl;
   _Fact._() : super._();
@@ -260,7 +260,7 @@ abstract class _Fact extends Fact {
   String get prologue;
   @override
   @HiveField(4)
-  Sections get section;
+  Section get section;
   @override
   @HiveField(5)
   Levels get level;

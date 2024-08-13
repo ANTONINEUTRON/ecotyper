@@ -36,17 +36,17 @@ class _AppState extends State<App> with WidgetsBindingObserver {
     var bloc = context.read<AppBloc>();
     switch (state) {
       case AppLifecycleState.resumed:
-        print("To play sound if user option is true");
         if (bloc.state.playMusicStatus != PlayMusicStatus.stopped) {
           bloc.playMusic();
         }
         break;
+
       case AppLifecycleState.inactive:
-        print("To pause sound if user option is true");
         if (bloc.state.playMusicStatus == PlayMusicStatus.play) {
           bloc.pauseMusic();
         }
         break;
+
       default:
         break;
     }

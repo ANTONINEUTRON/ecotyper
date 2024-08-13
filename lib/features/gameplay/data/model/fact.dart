@@ -15,7 +15,7 @@ class Fact extends HiveObject with _$Fact {
     @HiveField(1) required String id,
     @HiveField(2) required String fact,
     @HiveField(3) required String prologue,
-    @HiveField(4) required Sections section,
+    @HiveField(4) required Section section,
     @HiveField(5) required Levels level,
     @HiveField(6) required DateTime lastAccessedTime,
   }) = _Fact;
